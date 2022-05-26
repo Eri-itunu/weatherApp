@@ -1,28 +1,52 @@
+
 let weather = {
     apiKey: "488fb5d4d9d68cc533ba44205ae446a1",
+    
 
-    getLocation: function(city,limit){
+
+
+    getLocation:  function(city,limit){
         fetch(
             "http://api.openweathermap.org/geo/1.0/direct?q="
             +city+"&limit="+
             limit+"&appid="+this.apiKey
-        ).then((response) => response.json())
-        .then((data) =>console.log(data));
-
+        )
+            .then((response) => response.json())
+            .then((data) => this.displaycoordinates(data))  
+        
     },
 
-    fetchWeather: function(lat,lon){
-        fetch(
-            "https://api.openweathermap.org/data/2.5/weather?lat="
-             +lat+"&lon="+lon+"&appid=" +this.apiKey
-        ).then((response) => response.json())
-        .then((data) =>console.log(data));
+    displaycoordinates: function(data){
+        
+        const{name , lon , lat} = Object.values(data)[0]
+        console.log(name,lon ,lat)
+        this.fetchWeather(lon,lat)
+
+         
     },
 
-    displayWeather: function(data){
+    fetchWeather:  function (lon,lat){
+     fetch(
+         "https://api.openweathermap.org/data/2.5/weather?lat="
+         +lat+"&lon="+lon+"&appid=" +this.apiKey
+ 
+        )
+            .then((response) => response.json())
+            .then((data) => this.displayWeather(data))
+    },
+
+    displayWeather: function (data){
+        const{icon, description } = Object.values(data)[1][0]
+        const{temp, humidity} = Object.values(data)[2][0]
+        const{speed} = Object.values(data)[3]
+
+        console.log(icon,description,temp,humidity,speed)
 
     }
-} 
 
-lon =3.3941795
-lat =6.4550575
+
+
+   
+
+   
+} 
