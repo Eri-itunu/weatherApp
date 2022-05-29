@@ -21,6 +21,7 @@ let weather = {
         const{name , lon , lat} = Object.values(data)[0]
         console.log(name,lon ,lat)
         this.fetchWeather(lon,lat)
+        
 
          
     },
@@ -37,10 +38,11 @@ let weather = {
 
     displayWeather: function (data){
         const{icon, description } = Object.values(data)[1][0]
-        const{temp, humidity} = Object.values(data)[2][0]
+        const{temp, humidity} = Object.values(data)[weather]
         const{speed} = Object.values(data)[3]
+        const{name} = Object.values(data)[9]
 
-        console.log(icon,description,temp,humidity,speed)
+        console.log(icon,description,temp,humidity,speed,name)
 
     }
 
